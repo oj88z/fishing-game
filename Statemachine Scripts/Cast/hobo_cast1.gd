@@ -1,13 +1,8 @@
 class_name HoboCast1
 extends State
-# to solve the duplicating script error after renaming classes, simply open the script
-# and give it some time to update the names
-
-# the function of this script is to handle the movement, specific state animations as well as 
-# signaling a change of states when exiting
 
 # remember to add these in the inspector
-@export var player: Player # the main node that our state manipulates / CharacterBody2D
+@export var player: Player
 @export var animator: AnimatedSprite2D
 
 @onready var fsm = $"../.." as FiniteStateMachine
@@ -46,6 +41,5 @@ func _on_state_entered(): # weak cast
 # causing a 'glitch' frame, where the property change was applied but the animation was not. If 
 # this turns out to be a problem, after calling play(), you can call advance(0) to update the 
 # animation immediately.
-
 
 

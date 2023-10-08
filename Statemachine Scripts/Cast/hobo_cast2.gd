@@ -1,14 +1,12 @@
 class_name HoboCast2
 extends State
-# to solve the duplicating script error after renaming classes, simply open the script
-# and give it some time to update the names
-
-# the function of this script is to handle the movement, specific state animations as well as 
-# signaling a change of states when exiting
 
 # remember to add these in the inspector
-@export var player: Player # the main node that our state manipulates / CharacterBody2D
+@export var player: Player
 @export var animator: AnimatedSprite2D
+
+@onready var fsm = $"../.." as FiniteStateMachine
+@onready var node_fishing_06 = $"../../Fishing/Fishing_06" as HoboFishing_06
 
 signal state_entered
 signal animation_done
@@ -28,8 +26,12 @@ func _process(_delta):
 		await animator.animation_finished
 		animation_done.emit()
 
-func _on_state_entered():
-	pass # Replace with function body.
+func _on_state_entered(): # medium cast
+	if (animation_done.is_connected(fsm.change_state.bind(node_fishing_06))):
+		pass
+	else:
+		animation_done.connect(fsm.change_state.bind(node_fishing_06))
+	print("cast2 ready")
 
 # from : https://docs.godotengine.org/en/stable/tutorials/2d/2d_sprite_animation.html
 # If updating both an animation and a separate property at once (for example, a platformer may 

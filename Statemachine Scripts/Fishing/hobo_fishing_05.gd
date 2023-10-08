@@ -1,17 +1,20 @@
 class_name HoboFishing_05
 extends State
-# to solve the duplicating script error after renaming classes, simply open the script
-# and give it some time to update the names
-
-# the function of this script is to handle the movement, specific state animations as well as 
-# signaling a change of states when exiting
 
 # remember to add these in the inspector
-@export var player: Player # the main node that our state manipulates / CharacterBody2D
+@export var player: Player
 @export var animator: AnimatedSprite2D
 
+@onready var fsm = $"../.." as FiniteStateMachine
+@onready var node_reel_05_04 = $"../../Reel/Reel_05-04" as HoboReel_05_04
+
+signal state_entered
 signal reel_pressed # when SHIFT is pressed we signal for a change of states
 signal bite3
+
+func _ready():
+	set_process(false)
+	state_entered.emit()
 
 func _enter_state() -> void:
 	set_process(true)
@@ -24,6 +27,12 @@ func _process(_delta):
 	if Input.is_action_pressed("reel"):
 		reel_pressed.emit()
 
+func _on_state_entered():
+	if (reel_pressed.is_connected(fsm.change_state.bind(node_reel_05_04))):
+		pass
+	else:
+		reel_pressed.connect(fsm.change_state.bind(node_reel_05_04))
+	print("fishing_05 ready")
 
 # from : https://docs.godotengine.org/en/stable/tutorials/2d/2d_sprite_animation.html
 # If updating both an animation and a separate property at once (for example, a platformer may 
@@ -33,3 +42,4 @@ func _process(_delta):
 # causing a 'glitch' frame, where the property change was applied but the animation was not. If 
 # this turns out to be a problem, after calling play(), you can call advance(0) to update the 
 # animation immediately.
+

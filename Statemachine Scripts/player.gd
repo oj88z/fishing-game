@@ -42,11 +42,15 @@ func _ready():
 func _process(_delta): # here we change states via the FiniteStateMachine. 
 	pass
 	
+	# OLD CODE
+	# Currently nothing is being run from this script.
+	# The commented out code remains to give an example of what function it was meant to have.
+	
 	# IDLE
 #	if (fsm.state == node_idle):
 #		node_idle.cast_pressed.connect(fsm.change_state.bind(node_windup_00))
 #		print("idle entered")
-
+	
 #	# WINDUP
 #	if (fsm.state == node_windup_00): # WindUp intro
 #		# casting during the intro results in a medium cast
@@ -182,5 +186,6 @@ func _process(_delta): # here we change states via the FiniteStateMachine.
 #		await node_reel_09_08.animation_done
 #		node_reel_09_08.animation_done.connect(fsm.change_state.bind(node_fishing_08))
 #		print("reel_09-08 entered")
+
 
 

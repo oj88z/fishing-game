@@ -1,7 +1,7 @@
 class_name State
 extends Node
 
-# to figure out what this script does, check out the FiniteStateMachine class.
+# to see what this script does, check out the FiniteStateMachine class.
 
 signal state_finished
 
